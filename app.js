@@ -33,8 +33,8 @@ const promptUser = () => {
 const promptProject = portfolioData => {
     
     // If there's no projects array property, create one
-    if (portfolioData.projects) {
-        portfolioData.projects = [];
+    if (portfolioData.name) {
+        portfolioData.projects = [portfolioData.name];
     }
     
     console.log(`
