@@ -30,7 +30,13 @@ const promptUser = () => {
     ]);
 };
 
-const promtProject = () => {
+const promptProject = portfolioData => {
+    
+    // If there's no projects array property, create one
+    if (portfolioData.projects) {
+        portfolioData.projects = [];
+    }
+    
     console.log(`
     =================
     Add a New Project
@@ -52,7 +58,7 @@ const promtProject = () => {
             name: 'languages',
             message: 'What did you build this project with? (check all that apply)',
             choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'JQuery', 'Bootstrap', 'Node']
-        }
+        },
         {
             type: 'confirm',
             name: 'feature',
@@ -65,18 +71,30 @@ const promtProject = () => {
             message: 'Would you like to enter another project?',
             default: false
         }
-    ]);
-};
+    ])
+    .then(projectData => {
+        portfolioData.projects.push(projectData);
+        if (projectData.confirmAddProject) {
+          return promptProject(portfolioData);
+        } else {
+          return portfolioData;
+        }
+    });
+}
 
-promptUser().then(answers => console.log(answers));
 
+promptUser()
+    .then(promptProject)
+    .then(portfolioData => {
+        console.log(portfolioData);
+    });
 
 // const printProfileData = profileDataArr => {
-//     //This...
-//     for (let i = 0; i < profileDataArr.length; i++) {
-//     console.log(profileDataArr[i]);
-//     }
-
+    //     //This...
+    //     for (let i = 0; i < profileDataArr.length; i++) {
+        //     console.log(profileDataArr[i]);
+        //     }
+        
 //     console.log('==============');
 
 //     // Is the same as this...
