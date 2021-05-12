@@ -10,16 +10,65 @@ const inquirer = require('inquirer')
 //     console.log('Portfolio complete! Check out index.html to see the output!')
 // });
 
-inquirer
-    .prompt([
+const promptUser = () => {
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
             message: 'What is your name?'
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'Enter your GitHub Username'
+        },
+        {
+            type: 'input',
+            name: 'about',
+            message: 'Provide some information about yourself:'
         }
-    ])
-    .then(answer => console.log(answers));
+    ]);
+};
 
+const promtProject = () => {
+    console.log(`
+    =================
+    Add a New Project
+    =================
+    `);
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the name of your project?'
+        },
+        {
+            type: 'input',
+            name: 'description',
+            message: 'Provide a description of the project (Required)'
+        },
+        {
+            type: 'checkbox',
+            name: 'languages',
+            message: 'What did you build this project with? (check all that apply)',
+            choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'JQuery', 'Bootstrap', 'Node']
+        }
+        {
+            type: 'confirm',
+            name: 'feature',
+            message: 'Would you like to feature this project?',
+            default: false
+        },
+        {
+            type: 'confirm',
+            name: 'confirmAddProject',
+            message: 'Would you like to enter another project?',
+            default: false
+        }
+    ]);
+};
+
+promptUser().then(answers => console.log(answers));
 
 
 // const printProfileData = profileDataArr => {
